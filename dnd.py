@@ -118,6 +118,11 @@ int_mod_prof = prof_mod
 wis_mod_prof = prof_mod
 cha_mod_prof = 0
 
+#initiative: if you have special bonus to initiative, add it here. Otherwise leave it = dex_mod. Eg if you get to add you int mod to your 
+#initiative rolls, you can make the row below say "initiative_mod = dex_mod + int_mod"
+
+initiative_mod = dex_mod
+
 # Spell List: If you are a spell-casting class fill out the variables below. Otherwise leave them = "". If you want to track spells prepared,
 # Just add a symbol of your choosing before the name such as "@ Magic Missile", and that symbol will appear on your character sheet. When doing
 # this put 2 spaces before all other spell names to make them line up nicely.
@@ -363,220 +368,87 @@ while True:
 					print("New score: " + str(str_score) + " New mod: " + str(str_mod))
 				lower_str()
 
+	#initiative
+	if action_taken == "roll initiative":
+		die_roll = random.randint(1, 20)
+		print("\nDie roll: " + str(die_roll))
+		initiative_roll = die_roll + initiative_mod
+		print("Check with mods: " + str(initiative_roll))
+
+
+
 	#skill checks
+	def skillcheck(skill_mod, skill_mod_prof):
+		die_roll = random.randint(1, 20)
+		if die_roll == 1:
+			print("\n!! Natural 1 - CRITICAL FAILURE !!")
+		if die_roll == 20:
+			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
+		print("\nDie roll: " + str(die_roll))
+		skill_check = die_roll + skill_mod + skill_mod_prof
+		print("Check with mods: " + str(skill_check))
+
 	if action_taken == "str check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		str_check = die_roll + str_mod + str_mod_prof
-		print("Check with mods: " + str(str_check))
+		skillcheck(str_mod, str_mod_prof)
 	if action_taken == "dex check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		dex_check = die_roll + dex_mod + dex_mod_prof
-		print("Check with mods: " + str(dex_check))
+		skillcheck(dex_mod, dex_mod_prof)
 	if action_taken == "con check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		con_check = die_roll + con_mod + con_mod_prof
-		print("Check with mods: " + str(con_check))
+		skillcheck(con_mod, con_mod_prof)
 	if action_taken == "int check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		int_check = die_roll + int_mod + int_mod_prof
-		print("Check with mods: " + str(int_check))
+		skillcheck(int_mod, int_mod_prof)
 	if action_taken == "wis check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		wis_check = die_roll + wis_mod + wis_mod_prof
-		print("Check with mods: " + str(wis_check))
+		skillcheck(wis_mod, wis_mod_prof)
 	if action_taken == "cha check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		cha_check = die_roll + cha_mod + cha_mod_prof
-		print("Check with mods: " + str(cha_check))
+		skillcheck(cha_mod, cha_mod_prof)
 
 	#ability checks
-	if action_taken == "arcana check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		arcana_check = die_roll + arcana_mod
-		print("Check with mods: " + str(arcana_check))
-	if action_taken == "history check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		history_check = die_roll + history_mod
-		print("Check with mods: " + str(history_check))
-	if action_taken == "investigation check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		investigation_check = die_roll + investigation_mod
-		print("Check with mods: " + str(investigation_check))
-	if action_taken == "nature check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		nature_check = die_roll + nature_mod
-		print("Check with mods: " + str(nature_check))
-	if action_taken == "religion check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		religion_check = die_roll + religion_mod
-		print("Check with mods: " + str(religion_check))
-	if action_taken == "perception check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		perception_check = die_roll + perception_mod
-		print("Check with mods: " + str(perception_check))
-	if action_taken == "insight check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		insight_check = die_roll + insight_mod
-		print("Check with mods: " + str(insight_check))
-	if action_taken == "animal handling check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		animal_handling_check = die_roll + animal_handling_mod
-		print("Check with mods: " + str(animal_handling_check))
-	if action_taken == "medicine check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		medicine_check = die_roll + medicine_mod
-		print("Check with mods: " + str(medicine_check))
-	if action_taken == "survival check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		survival_check = die_roll + survival_mod
-		print("Check with mods: " + str(survival_check))
-	if action_taken == "acrobatics check":
-		acrobatics_check = random.randint(1, 20)+acrobatics_mod
-		print(acrobatics_check)
-	if action_taken == "slight of hand check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		slight_of_hand_check = die_roll + slight_of_hand_mod
-		print("Check with mods: " + str(slight_of_hand_check))
-	if action_taken == "stealth check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		stealth_check = die_roll + stealth_mod
-		print("Check with mods: " + str(stealth_check))
-	if action_taken == "deception check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		deception_check = die_roll + deception_mod
-		print("Check with mods: " + str(deception_check))
-	if action_taken == "intimidation check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		intimidation_check = die_roll + intimidation_mod
-		print("Check with mods: " + str(intimidation_check))
-	if action_taken == "performance check":
-		pdie_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		performance_check = die_roll + performance_mod
-		print("Check with mods: " + str(performance_check))
-	if action_taken == "persuasion check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		persuasion_check = die_roll + persuasion_mod
-		print("Check with mods: " + str(persuasion_check))
-	if action_taken == "strength check":
-		die_roll = random.randint(1, 20)
-		if die_roll == 1:
-			print("\n!! Natural 1 - CRITICAL FAILURE !!")
-		if die_roll == 20:
-			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
-		print("\nDie roll: " + str(die_roll))
-		strength_check = die_roll + strength_mod
-		print("Check with mods: " + str(strength_check))
 
+	def abilitycheck(skill_mod):
+		die_roll = random.randint(1, 20)
+		if die_roll == 1:
+			print("\n!! Natural 1 - CRITICAL FAILURE !!")
+		if die_roll == 20:
+			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
+		print("\nDie roll: " + str(die_roll))
+		skill_check = die_roll + skill_mod
+		print("Check with mods: " + str(skill_check))
+
+	if action_taken == "arcana check":
+		abilitycheck(arcana_mod)
+	if action_taken == "history check":
+		abilitycheck(history_mod)
+	if action_taken == "investigation check":
+		abilitycheck(investigation_mod)
+	if action_taken == "nature check":
+		abilitycheck(nature_mod)
+	if action_taken == "religion check":
+		abilitycheck(religion_mod)
+	if action_taken == "perception check":
+		abilitycheck(perception_mod)
+	if action_taken == "insight check":
+		abilitycheck(insight_mod)
+	if action_taken == "animal handling check":
+		abilitycheck(animal_handling_mod)
+	if action_taken == "medicine check":
+		abilitycheck(medicine_mod)
+	if action_taken == "survival check":
+		abilitycheck(survival_mod)
+	if action_taken == "acrobatics check":
+		abilitycheck(acrobatics_mod)
+	if action_taken == "slight of hand check":
+		abilitycheck(slight_of_hand_mod)
+	if action_taken == "stealth check":
+		abilitycheck(stealth_mod)
+	if action_taken == "deception check":
+		abilitycheck(deception_mod)
+	if action_taken == "intimidation check":
+		abilitycheck(intimidation_mod)
+	if action_taken == "performance check":
+		abilitycheck(performance_mod)
+	if action_taken == "persuasion check":
+		abilitycheck(persuasion_mod)
+	if action_taken == "strength check":
+		abilitycheck(strength_mod)
 
 	#Casting Spells
 	if action_taken == "cast spell":
@@ -1292,68 +1164,34 @@ Item Tags: CONTROL WARDING | Basic Rules , pg. 159
 			#subprocess.call(["say", "Security Portfolio information loaded"])
 
 #Enables the rolling of dice. Asks user how many of each to roll, then displays and announces results and sum of rolls. 
+
+	def dieroll(sides):
+		number_rolls = int(input("How many should I roll?  "))
+		roll_total = [random.randint(1, sides) for i in range(number_rolls)]
+		print("\n:: d" + str(sides) +" Roll Results ::\n")
+		print('\n'.join(str(i) for i in roll_total))
+		roll_outcome = sum(roll_total)
+		print("\nSum of rolls: {}".format(sum(roll_total)))
+
 	if action_taken == "d4":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,4) for i in range(number_rolls)]
-		print("\n:: d4 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D fours rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		dieroll(4)
 	if action_taken == "d6":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,6) for i in range(number_rolls)]
-		print("\n:: d6 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D sixes rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		dieroll(6)
 	if action_taken == "d8":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,8) for i in range(number_rolls)]
-		print("\n:: d8 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D eights rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		dieroll(8)
 	if action_taken == "d10":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,10) for i in range(number_rolls)]
-		print("\n:: d10 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D tens rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		dieroll(10)
 	if action_taken == "d12":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,12) for i in range(number_rolls)]
-		print("\n:: d12 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D twelves rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		dieroll(12)
 	if action_taken == "d20":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,20) for i in range(number_rolls)]
-		print("\n:: d20 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D twentys rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
-
+		die_roll = random.randint(1, 20)
+		if die_roll == 1:
+			print("\n!! Natural 1 - CRITICAL FAILURE !!")
+		if die_roll == 20:
+			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
+		print("\nDie roll: " + str(die_roll))
 	if action_taken == "d100":
-		number_rolls = int(input("How many should I roll?  "))
-		roll_total = [random.randint(1,100) for i in range(number_rolls)]
-		print("\n:: d100 Roll Results ::\n")
-		print('\n'.join(str(i) for i in roll_total))
-		roll_outcome = sum(roll_total)
-		print("\nSum of rolls: {}".format(sum(roll_total)))
-		#subprocess.call(["say", str(number_rolls)+".. D one hundreds rolled. Results are"+str(roll_total) + "..Sum of rolls equals" + str(sum(roll_total))])
+		dieroll(100)
 
 	#Joke time!
 	if action_taken == "joke":
