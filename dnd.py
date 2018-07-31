@@ -44,20 +44,13 @@ print(attributes["strength"])
 
 #Basic Character Info
 current_level = 9
-character_name = "Radikl"
+character_name = "Head Librarian"
 character_race = "Human"
-character_align = "Chaotic Good"
+character_align = "Lawful Neutral"
 character_speed = "30ft"
-character_background = "Spy (Hacker)"
+character_background = "Sage"
 character_class = "Wizard"
-character_school = "Abjuration"
-
-
-
-#HP - Input current information (usually best to put in full health here, it can be changed later with the "change health" command)
-max_hp = 35
-current_hp = 35
-temp_hp = 0
+character_school = "Library Science"
 
 # !!! PROF - DON'T MODIFY !!!
 if current_level in {1, 2, 3, 4}:
@@ -73,11 +66,11 @@ if current_level in {17, 18, 19, 20}:
 
 #ability scores - input current ability scores
 str_score = 8
-dex_score = 16
-con_score = 8
-int_score = 20
-wis_score = 10
-cha_score = 15
+dex_score = 10
+con_score = 14
+int_score = 18
+wis_score = 16
+cha_score = 10
 
 # !!! ability modifiers DO NOT MODIFY !!!
 str_mod = math.floor((str_score-10)/2)
@@ -89,20 +82,20 @@ cha_mod = math.floor((cha_score-10)/2)
 
 #Proficiency: if you are proficient in a skill below, make sure it has "+ prof_mod", or "+ (2*prof_mod)"" if you have expertise in that skill
 
-arcana_mod = int_mod + prof_mod
-history_mod = int_mod
-investigation_mod = int_mod + prof_mod
-nature_mod = int_mod
-religion_mod = int_mod
-perception_mod = wis_mod
-insight_mod  = wis_mod
+arcana_mod = int_mod + (2*prof_mod)
+history_mod = int_mod + (2*prof_mod)
+investigation_mod = int_mod + (2*prof_mod)
+nature_mod = int_mod + (2*prof_mod)
+religion_mod = int_mod + (2*prof_mod)
+perception_mod = wis_mod + prof_mod
+insight_mod  = wis_mod + prof_mod
 animal_handling_mod = wis_mod
 medicine_mod = wis_mod
 survival_mod = wis_mod
 acrobatics_mod = dex_mod
 slight_of_hand_mod = dex_mod 
-stealth_mod = dex_mod + prof_mod
-deception_mod = cha_mod + prof_mod
+stealth_mod = dex_mod
+deception_mod = cha_mod
 intimidation_mod = cha_mod  
 performance_mod = cha_mod
 persuasion_mod = cha_mod
@@ -118,19 +111,40 @@ int_mod_prof = prof_mod
 wis_mod_prof = prof_mod
 cha_mod_prof = 0
 
+#Skill check mods. Here put the total additional points added to skill checks from whatever sources. Eg Ring of Protection
+#gives wearers +1 to all skill checks. Note that this affects all skill checks. If you need individual, you will have to modify code 
+#below for saving throws. If you have no particular bonus leave it 0
+
+saving_throw_mod = 1 # 1 from Ring of Protection
+
 #initiative: if you have special bonus to initiative, add it here. Otherwise leave it = dex_mod. Eg if you get to add you int mod to your 
 #initiative rolls, you can make the row below say "initiative_mod = dex_mod + int_mod"
 
-initiative_mod = dex_mod
+initiative_mod = dex_mod + int_mod #int_mod added based on character
+
+#Armor Class: Make sure to add any bonuses you get here from items, armor, etc. Base is 10 + dex_mod
+
+armor_class = 10 + dex_mod + 1 #+1 added from Ring of Protection 
+
+#Passive Perception
+
+passive_perception = 10 + prof_mod + wis_mod
+
+#HP - Input current information (usually best to put in full health here, it can be changed later with the "change health" command)
+wiz_max_hp = (6+con_mod)+((current_level-1)*(4+con_mod))
+current_hp = 9
+temp_hp = 0
+
+
 
 # Spell List: If you are a spell-casting class fill out the variables below. Otherwise leave them = "". If you want to track spells prepared,
 # Just add a symbol of your choosing before the name such as "@ Magic Missile", and that symbol will appear on your character sheet. When doing
 # this put 2 spaces before all other spell names to make them line up nicely.
 
-cantrip_known_1 = "  Minor Illusion"
-cantrip_known_2 = "  Infestation"
+cantrip_known_1 = "  Prestidigitation"
+cantrip_known_2 = "  Dancing Lights"
 cantrip_known_3 = "  Message"
-cantrip_known_4 = "  Light" 
+cantrip_known_4 = "  Shape Water" 
 cantrip_known_5 = ""
 cantrip_known_6 = ""
 cantrip_known_7 = ""
@@ -139,64 +153,64 @@ cantrip_known_9 = ""
 cantrip_known_10 = ""
 
 ritual_known_1 = "  Identify"
-ritual_known_2 = "  Alarm"
-ritual_known_3 = "  Unseen Servant"
+ritual_known_2 = "  Comp. Languages"
+ritual_known_3 = "  Floating Disk"
 ritual_known_4 = "  Illusory Script"
-ritual_known_5 = "  Find Familiar"
-ritual_known_6 = "  Magic Mouth"
-ritual_known_7 = "  Tiny Hut"
-ritual_known_8 = "  Telepathic Bond"
-ritual_known_9 = "  Contact Other Plane"
-ritual_known_10 = ""
+ritual_known_5 = "  Detect Magic"
+ritual_known_6 = "  Alarm"
+ritual_known_7 = "  Find Familiar"
+ritual_known_8 = "  Unseen Servant"
+ritual_known_9 = "  Magic Mouth"
+ritual_known_10 = " "
 
-lvl1_known_1 = "@ Shield"
-lvl1_known_2 = "  Mage Armor"
+lvl1_known_1 = "@ Sleep"
+lvl1_known_2 = "  Charm Person"
 lvl1_known_3 = "@ Magic Missile"
-lvl1_known_4 = "  Thunderwave"
-lvl1_known_5 = "  Charm Person"
-lvl1_known_6 = "  Snare"
-lvl1_known_7 = "  Expedius Retreat"
+lvl1_known_4 = "  Scholar's Touch"
+lvl1_known_5 = "  Shield"
+lvl1_known_6 = "  "
+lvl1_known_7 = "   "
 lvl1_known_8 = " "
 lvl1_known_9 = " "
 lvl1_known_10 = " "
 
-lvl2_known_1 = "  Detect Thoughts"
-lvl2_known_2 = "@ Knock"
-lvl2_known_3 = "@ Misty Step"
-lvl2_known_4 = "  Arcane Lock"
-lvl2_known_5 = "@ Mirror Image"
-lvl2_known_6 = "@ Crown of Madness"
-lvl2_known_7 = "  Suggestion"
-lvl2_known_8 = " "
+lvl2_known_1 = "  Knock"
+lvl2_known_2 = "@ Detect Thoughts"
+lvl2_known_3 = "  Levitate"
+lvl2_known_4 = "  Locate Object"
+lvl2_known_5 = "  Arcane Lock"
+lvl2_known_6 = "@ Suggestion"
+lvl2_known_7 = "  Invisibility"
+lvl2_known_8 = "@ Dragon's Breath"
 lvl2_known_9 = " "
 lvl2_known_10 = " "
 
-lvl3_known_1 = "@ Fly"
-lvl3_known_2 = "  Dispell Magic"
-lvl3_known_3 = "@ Counterspell"
-lvl3_known_4 = "  Blink"
-lvl3_known_5 = "@ Lightning Bolt"
-lvl3_known_6 = "  Gaseous Form"
-lvl3_known_7 = " "
-lvl3_known_8 = " "
-lvl3_known_9 = " "
-lvl3_known_10 = " "
+lvl3_known_1 = "@ Haste"
+lvl3_known_2 = "  Glyph of Warding"
+lvl3_known_3 = "  Sending"
+lvl3_known_4 = "  Tongues"
+lvl3_known_5 = "  Dispell Magic"
+lvl3_known_6 = "  Clairvoyance"
+lvl3_known_7 = "@ Counterspell"
+lvl3_known_8 = "  Slow"
+lvl3_known_9 = "@ Lightning Bolt"
+lvl3_known_10 = "@ Magic Circle"
 
-lvl4_known_1 = "@ Banishment"
-lvl4_known_2 = "@ Stoneskin"
-lvl4_known_3 = "@ Locate Creature"
-lvl4_known_4 = " "
-lvl4_known_5 = " "
+lvl4_known_1 = "  Fabricate"
+lvl4_known_2 = "@ Banishment"
+lvl4_known_3 = "@ Deminsion Door"
+lvl4_known_4 = "  Private Sanctum"
+lvl4_known_5 = "@ Confusion"
 lvl4_known_6 = " "
 lvl4_known_7 = " "
 lvl4_known_8 = " "
 lvl4_known_9 = " "
 lvl4_known_10 = " "
 
-lvl5_known_1 = "@ Wall of Force"
-lvl5_known_2 = "  Seeming"
-lvl5_known_3 = "  Synaptic Static"
-lvl5_known_4 = "@ Telekinesis"
+lvl5_known_1 = "@ Dawn"
+lvl5_known_2 = " "
+lvl5_known_3 = " "
+lvl5_known_4 = " "
 lvl5_known_5 = " "
 lvl5_known_6 = " "
 lvl5_known_7 = " "
@@ -248,6 +262,253 @@ lvl9_known_8 = " "
 lvl9_known_9 = " "
 lvl9_known_10 = " "
 
+#Spell stats (for Wizard)
+
+spells_prepped = int_mod + current_level
+spell_save = 8 + prof_mod + int_mod
+spell_attack = prof_mod + int_mod
+
+#Spell Slots !! DON'T MODIFY !!
+
+if current_level == 1:
+	cantrips_known = 3
+	spell_slots_1 = 2
+	spell_slots_2 = 0	
+	spell_slots_3 = 0
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 2:
+	cantrips_known = 3
+	spell_slots_1 = 3
+	spell_slots_2 = 0	
+	spell_slots_3 = 0
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 3:
+	cantrips_known = 3
+	spell_slots_1 = 4
+	spell_slots_2 = 2	
+	spell_slots_3 = 0
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 4:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 0
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 5:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 2
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 6:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 0
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 7:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 1
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 8:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 2
+	spell_slots_5 = 0
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 9:
+	cantrips_known = 4
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 1
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 10:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 0
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 11:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 12:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 0
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 13:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 14:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 0
+	spell_slots_9 = 0
+
+if current_level == 15:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 1
+	spell_slots_9 = 0
+
+if current_level == 16:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 1
+	spell_slots_9 = 0
+
+if current_level == 17:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 1
+	spell_slots_9 = 1
+
+if current_level == 18:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 1
+	spell_slots_7 = 1
+	spell_slots_8 = 1
+	spell_slots_9 = 1
+
+if current_level == 19:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 2
+	spell_slots_7 = 1
+	spell_slots_8 = 1
+	spell_slots_9 = 1
+
+if current_level == 20:
+	cantrips_known = 5
+	spell_slots_1 = 4
+	spell_slots_2 = 3	
+	spell_slots_3 = 3
+	spell_slots_4 = 3
+	spell_slots_5 = 2
+	spell_slots_6 = 2
+	spell_slots_7 = 2
+	spell_slots_8 = 1
+	spell_slots_9 = 1
 
 
 
@@ -274,7 +535,7 @@ while True:
 		#attributes_table.hrules = prettytable.ALL
 		# One space between column edges and contents (default) 
 		attributes_table.add_row(["  ", "MAX HP", "CURRENT HP", "TEMP HP", "      ", "SKILL", "SKILL MOD"])
-		attributes_table.add_row(["  ", max_hp,current_hp,temp_hp,"","","",])
+		attributes_table.add_row(["  ", wiz_max_hp,current_hp,temp_hp,"","","",])
 		attributes_table.add_row(["  ", "","","","", "Arcana", arcana_mod]) 
 		attributes_table.add_row(["  ", "","","","","History", history_mod]) 
 		attributes_table.add_row(["  ", "ABILITY","SCORE","MOD","","Investigation", investigation_mod]) 
@@ -304,31 +565,31 @@ while True:
 		#attributes_table.hrules = prettytable.ALL
 		# One space between column edges and contents (default) 
 		spell_table.add_row(["","","","","",""])
-		spell_table.add_row(["  CANTRIPS","  LEVEL 1","  LEVEL 2","  LEVEL 3","  LEVEL 4","  LEVEL 5"])
+		spell_table.add_row(["  SPELL SLOTS","  CANTRIPS"," RITUALS","  LEVEL 1","  LEVEL 2","  LEVEL 3"])
+		spell_table.add_row(["  LVL / #","","","","",""])
+		spell_table.add_row(["    0 / " + str(cantrips_known),cantrip_known_1,ritual_known_1,lvl1_known_1,lvl2_known_1,lvl3_known_1])
+		spell_table.add_row(["    1 / " + str(spell_slots_1),cantrip_known_2,ritual_known_2,lvl1_known_2,lvl2_known_2,lvl3_known_2])
+		spell_table.add_row(["    2 / " + str(spell_slots_2),cantrip_known_3,ritual_known_3,lvl1_known_3,lvl2_known_3,lvl3_known_3])
+		spell_table.add_row(["    3 / " + str(spell_slots_3),cantrip_known_4,ritual_known_4,lvl1_known_4,lvl2_known_4,lvl3_known_4])
+		spell_table.add_row(["    4 / " + str(spell_slots_4),cantrip_known_5,ritual_known_5,lvl1_known_5,lvl2_known_5,lvl3_known_5])
+		spell_table.add_row(["    5 / " + str(spell_slots_5),cantrip_known_6,ritual_known_6,lvl1_known_6,lvl2_known_6,lvl3_known_6])
+		spell_table.add_row(["    6 / " + str(spell_slots_6),cantrip_known_7,ritual_known_7,lvl1_known_7,lvl2_known_7,lvl3_known_7])
+		spell_table.add_row(["    7 / " + str(spell_slots_7),cantrip_known_8,ritual_known_8,lvl1_known_8,lvl2_known_8,lvl3_known_8])
+		spell_table.add_row(["    8 / " + str(spell_slots_8),cantrip_known_9,ritual_known_9,lvl1_known_9,lvl2_known_9,lvl3_known_9])
+		spell_table.add_row(["    9 / " + str(spell_slots_9),cantrip_known_10,ritual_known_10,lvl1_known_10,lvl2_known_10,lvl3_known_10])
 		spell_table.add_row(["","","","","",""])
-		spell_table.add_row([cantrip_known_1,lvl1_known_1,lvl2_known_1,lvl3_known_1,lvl4_known_1,lvl5_known_1])
-		spell_table.add_row([cantrip_known_2,lvl1_known_2,lvl2_known_2,lvl3_known_2,lvl4_known_2,lvl5_known_2])
-		spell_table.add_row([cantrip_known_3,lvl1_known_3,lvl2_known_3,lvl3_known_3,lvl4_known_3,lvl5_known_3])
-		spell_table.add_row([cantrip_known_4,lvl1_known_4,lvl2_known_4,lvl3_known_4,lvl4_known_4,lvl5_known_4])
-		spell_table.add_row([cantrip_known_5,lvl1_known_5,lvl2_known_5,lvl3_known_5,lvl4_known_5,lvl5_known_5])
-		spell_table.add_row([cantrip_known_6,lvl1_known_6,lvl2_known_6,lvl3_known_6,lvl4_known_6,lvl5_known_6])
-		spell_table.add_row([cantrip_known_7,lvl1_known_7,lvl2_known_7,lvl3_known_7,lvl4_known_7,lvl5_known_7])
-		spell_table.add_row([cantrip_known_8,lvl1_known_8,lvl2_known_8,lvl3_known_8,lvl4_known_8,lvl5_known_8])
-		spell_table.add_row([cantrip_known_9,lvl1_known_9,lvl2_known_9,lvl3_known_9,lvl4_known_9,lvl5_known_9])
-		spell_table.add_row([cantrip_known_10,lvl1_known_10,lvl2_known_10,lvl3_known_10,lvl4_known_10,lvl5_known_10])
-		spell_table.add_row(["","","","","",""])
-		spell_table.add_row(["  RITUALS","  LEVEL 6","  LEVEL 7","  LEVEL 8","  LEVEL 9",""])
-		spell_table.add_row(["","","","","",""])
-		spell_table.add_row([ritual_known_1,lvl6_known_1,lvl7_known_1,lvl8_known_1,lvl9_known_1,""])
-		spell_table.add_row([ritual_known_2,lvl6_known_2,lvl7_known_2,lvl8_known_2,lvl9_known_2,""])
-		spell_table.add_row([ritual_known_3,lvl6_known_3,lvl7_known_3,lvl8_known_3,lvl9_known_3,""])
-		spell_table.add_row([ritual_known_4,lvl6_known_4,lvl7_known_4,lvl8_known_4,lvl9_known_4,""])
-		spell_table.add_row([ritual_known_5,lvl6_known_5,lvl7_known_5,lvl8_known_5,lvl9_known_5,""])
-		spell_table.add_row([ritual_known_6,lvl6_known_6,lvl7_known_6,lvl8_known_6,lvl9_known_6,""])
-		spell_table.add_row([ritual_known_7,lvl6_known_7,lvl7_known_7,lvl8_known_7,lvl9_known_7,""])
-		spell_table.add_row([ritual_known_8,lvl6_known_8,lvl7_known_8,lvl8_known_8,lvl9_known_8,""])
-		spell_table.add_row([ritual_known_9,lvl6_known_9,lvl7_known_9,lvl8_known_9,lvl9_known_9,""])
-		spell_table.add_row([ritual_known_10,lvl6_known_10,lvl7_known_10,lvl8_known_10,lvl9_known_10,lvl5_known_10])
+		spell_table.add_row(["  LEVEL 4","  LEVEL 5","  LEVEL 6","  LEVEL 7","  LEVEL 8","  LEVEL 9"])
+		spell_table.add_row(["","","","","","",])
+		spell_table.add_row([lvl4_known_1,lvl5_known_1,lvl6_known_1,lvl7_known_1,lvl8_known_1,lvl9_known_1])
+		spell_table.add_row([lvl4_known_2,lvl5_known_2,lvl6_known_2,lvl7_known_2,lvl8_known_2,lvl9_known_2])
+		spell_table.add_row([lvl4_known_3,lvl5_known_3,lvl6_known_3,lvl7_known_3,lvl8_known_3,lvl9_known_3])
+		spell_table.add_row([lvl4_known_4,lvl5_known_4,lvl6_known_4,lvl7_known_4,lvl8_known_4,lvl9_known_4])
+		spell_table.add_row([lvl4_known_5,lvl5_known_5,lvl6_known_5,lvl7_known_5,lvl8_known_5,lvl9_known_5])
+		spell_table.add_row([lvl4_known_6,lvl5_known_6,lvl6_known_6,lvl7_known_6,lvl8_known_6,lvl9_known_6])
+		spell_table.add_row([lvl4_known_7,lvl5_known_7,lvl6_known_7,lvl7_known_7,lvl8_known_7,lvl9_known_7])
+		spell_table.add_row([lvl4_known_8,lvl5_known_8,lvl6_known_8,lvl7_known_8,lvl8_known_8,lvl9_known_8])
+		spell_table.add_row([lvl4_known_9,lvl5_known_9,lvl6_known_9,lvl7_known_9,lvl8_known_9,lvl9_known_9])
+		spell_table.add_row([lvl4_known_10,lvl5_known_10,lvl6_known_10,lvl7_known_10,lvl8_known_10,lvl9_known_10])
 
 		
 		
@@ -338,6 +599,8 @@ while True:
 		print (attributes_table)
 		print("")
 		print("--------------------------------------------------------  Spell List  --------------------------------------------------------")
+		print("                            |  Spells Prepped: " + str(spells_prepped) + "  |  Spell Save DC: " + str(spell_save) + "  |  Spell Attack Mod: " + str(spell_attack) + "  |" )
+
 		print(spell_table)
 		print("")
 		print(character_table)
@@ -400,6 +663,30 @@ while True:
 		skillcheck(wis_mod, wis_mod_prof)
 	if action_taken == "cha check":
 		skillcheck(cha_mod, cha_mod_prof)
+
+	#saving throws
+	def saving_throw(skill_mod, skill_mod_prof, saving_throw_mod):
+		die_roll = random.randint(1, 20)
+		if die_roll == 1:
+			print("\n!! Natural 1 - CRITICAL FAILURE !!")
+		if die_roll == 20:
+			print("\n!! Natural 20 - CRITICAL SUCCESS !!")
+		print("\nDie roll: " + str(die_roll))
+		skill_check = die_roll + skill_mod + skill_mod_prof + saving_throw_mod
+		print("Check with mods: " + str(skill_check))
+
+	if action_taken == "str saving throw":
+		saving_throw(str_mod, str_mod_prof, saving_throw_mod)
+	if action_taken == "dex saving throw":
+		saving_throw(dex_mod, dex_mod_prof, saving_throw_mod)
+	if action_taken == "con saving throw":
+		saving_throw(con_mod, con_mod_prof, saving_throw_mod)
+	if action_taken == "int saving throw":
+		saving_throw(int_mod, int_mod_prof, saving_throw_mod)
+	if action_taken == "wis saving throw":
+		saving_throw(wis_mod, wis_mod_prof, saving_throw_mod)
+	if action_taken == "cha saving throw":
+		saving_throw(cha_mod, cha_mod_prof, saving_throw_mod)
 
 	#ability checks
 
@@ -491,7 +778,85 @@ even if you can't see it, but it must still be within range.
 Spell Tags: SOCIAL DETECTION | Available For: BARD SORCERER WIZARD | Basic Rules , pg. 231
 ---------------------------------------------------------------------------------------------------------------------------------\n""")
 			#subprocess.call(["say", "Neural Hacking program initiated"])
-		
+
+		if spell_cast in {"sleep"}:
+			print("""\n----------------------------------------------------------------------------------------------------------------------------
+SLEEP | LEVEL 1st | CASTING TIME 1 Action | RANGE/AREA 90ft (20ft^3) | COMPONENTS V,S,M | DURATION 1m | SCHOOL Enchantment
+----------------------------------------------------------------------------------------------------------------------------
+
+This spell sends creatures into a magical slumber. Roll 5d8; the total is how many hit points of creatures this spell can affect. 
+Creatures within 20 feet of a point you choose within range are affected in ascending order of their current hit points 
+(ignoring unconscious creatures).
+
+Starting with the creature that has the lowest current hit points, each creature affected by this spell falls 
+unconscious until the spell ends, the sleeper takes damage, or someone uses an action to shake or slap the sleeper awake. 
+Subtract each creature's hit points from the total before moving on to the creature with the next lowest hit points. 
+A creature's hit points must be equal to or less than the remaining total for that creature to be affected.
+
+Undead and creatures immune to being charmed aren't affected by this spell.
+
+At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, 
+roll an additional 2d8 for each slot level above 1st.
+
+---------------------------------------------------------------------------------------------------------------------------------
+Spell Tags: CONTROL | Available For: BARD SORCERER WIZARD | Basic Rules , pg. 276
+---------------------------------------------------------------------------------------------------------------------------------\n""")
+			spell_level = int(input("What level are you casting this at?  "))-1
+			number_rolls = 5 + (2*spell_level)
+			spell_damage = [random.randint(1,8) for i in range(number_rolls)]
+			print("\nSleep Hit Points Rolls:\n")
+			print('\n'.join(str(i) for i in spell_damage))
+			print("\nTotal Hit Points Affected: {}".format(sum(spell_damage)))
+
+		if spell_cast in {"dragon's breath"}:
+			print("""\n----------------------------------------------------------------------------------------------------------------------------
+DRAGON'S BREATH | LEVEL 2nd | CASTING TIME 1 Bonus | RANGE/AREA Touch (15ft Cone)) | COMPONENTS V,S,M* | DURATION C 1m | SCHOOL Transmutation
+----------------------------------------------------------------------------------------------------------------------------
+
+You touch one willing creature and imbue it with the power to spew magical energy from its mouth, provided it has one. 
+Choose acid, cold, fire, lightning, or poison. Until the spell ends, the creature can use an action to exhale energy 
+of the chosen type in a 15-foot cone. Each creature in that area must make a Dexterity saving throw, taking 3d6 damage 
+of the chosen type on a failed save, or half as much damage on a successful one.
+
+At Higher Levels. When you cast this spell using a spell slot of 3rd level or higher, 
+the damage increases by 1d6 for each slot level above 2nd.
+
+* - (a hot pepper)
+
+---------------------------------------------------------------------------------------------------------------------------------
+Spell Tags: DAMAGE BUFF | Available For: SORCERER WIZARD | Xanathar's Guide to Everything , pg. 154
+---------------------------------------------------------------------------------------------------------------------------------\n""")
+			spell_level = int(input("What level are you casting this at?  "))-2
+			number_rolls = 3 + spell_level
+			spell_damage = [random.randint(1,6) for i in range(number_rolls)]
+			print("\nDragon's Breath Rolls:\n")
+			print('\n'.join(str(i) for i in spell_damage))
+			print("\nTotal Damage: {}".format(sum(spell_damage)))
+
+		if spell_cast in {"suggestion"}:
+			print("""\n----------------------------------------------------------------------------------------------------------------------------
+SUGGESTION | LEVEL 2nd | CASTING TIME 1 Action | RANGE/AREA 30ft | COMPONENTS V,M* | DURATION C 8h | SCHOOL Enchantment
+----------------------------------------------------------------------------------------------------------------------------
+
+You suggest a course of activity (limited to a sentence or two) and magically influence a creature you can see within range 
+that can hear and understand you. Creatures that can't be charmed are immune to this effect. The suggestion must be worded 
+in such a manner as to make the course of action sound reasonable. Asking the creature to stab itself, throw itself onto a spear, 
+immolate itself, or do some other obviously harmful act ends the spell.
+
+The target must make a Wisdom saving throw. On a failed save, it pursues the course of action you described to the best of its ability. 
+The suggested course of action can continue for the entire duration. If the suggested activity can be completed in a shorter time, 
+the spell ends when the subject finishes what it was asked to do.
+
+You can also specify conditions that will trigger a special activity during the duration. 
+For example, you might suggest that a knight give her warhorse to the first beggar she meets. 
+If the condition isn't met before the spell expires, the activity isn't performed.
+
+If you or any of your companions damage the target, the spell ends.
+
+---------------------------------------------------------------------------------------------------------------------------------
+Spell Tags: CONTROL SOCIAL CHARMED | Available For: BARD SORCERER WARLOCK WIZARD | Basic Rules , pg. 279
+---------------------------------------------------------------------------------------------------------------------------------\n""")
+
 		if spell_cast in {"magic missile" , "basic malware attack"}:
 			print("""\n---------------------------------------------------------------------------------------------------------------------------------
 MAGIC MISSILE | LEVEL 1st | CASTING TIME 1 Action | RANGE/AREA 120ft | COMPONENTS V,S | DURATION Instantaneous | SCHOOL Evocation
